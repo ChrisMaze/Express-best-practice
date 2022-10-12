@@ -2,17 +2,17 @@ import { Request } from "express";
 import { ITodo } from "../types/ITodo";
 import Todo from "../models/todo";
 
-let findAll = async () => {
+let findAllTodos = async () => {
   const todos: ITodo[] = await Todo.find();
   return todos;
 };
 
-let find = async (req: Request) => {
+let findTodoById = async (req: Request) => {
   const todo: ITodo | null = await Todo.findById(req.params.id);
   return todo;
 };
 
-let create = async (req: Request) => {
+let createTodo = async (req: Request) => {
   const body = req.body as Pick<ITodo, "title" | "description" | "status">;
   const todo = new Todo({
     title: body.title,
@@ -23,7 +23,7 @@ let create = async (req: Request) => {
   return todo;
 };
 
-let update = async (req: Request) => {
+let updateTodoById = async (req: Request) => {
   const {
     params: { id },
     body,
@@ -32,9 +32,15 @@ let update = async (req: Request) => {
   return todo;
 };
 
-let remove = async (req: Request) => {
+let removeTodoById = async (req: Request) => {
   const todo: ITodo | null = await Todo.findByIdAndRemove(req.params.id);
   return todo;
 };
 
-export { findAll, find, create, update, remove };
+export {
+  findAllTodos as findAll,
+  findTodoById as find,
+  createTodo as create,
+  updateTodoById as update,
+  removeTodoById as remove,
+};
