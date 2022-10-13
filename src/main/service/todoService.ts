@@ -2,28 +2,32 @@ import { Request } from "express";
 import { ITodo } from "../types/ITodo";
 import Todo from "../models/todo";
 
-const findAllTodos = async () => {
+const getAllTodosService = async () => {
+  console.log("11111");
+  console.log(Todo);
   const todos: ITodo[] = await Todo.find();
+  console.log(todos);
   return todos;
 };
 
-const findTodoById = async (req: Request) => {
+const getTodoByIdService = async (req: Request) => {
+  console.log(req);
   const todo: ITodo | null = await Todo.findById(req.params.id);
   return todo;
 };
 
-const createTodo = async (req: Request) => {
-  const body = req.body as Pick<ITodo, "title" | "description" | "status">;
+const createTodoService = async (req: Request) => {
+  const body = req.body as Pick<ITodo, "title" | "description" | "completed">;
   const todo = new Todo({
     title: body.title,
     description: body.description,
-    status: body.status,
+    completed: body.completed,
   });
   await todo.save();
   return todo;
 };
 
-const updateTodoById = async (req: Request) => {
+const updateTodoByIdService = async (req: Request) => {
   const {
     params: { id },
     body,
@@ -32,15 +36,15 @@ const updateTodoById = async (req: Request) => {
   return todo;
 };
 
-const removeTodoById = async (req: Request) => {
+const removeTodoByIdService = async (req: Request) => {
   const todo: ITodo | null = await Todo.findByIdAndRemove(req.params.id);
   return todo;
 };
 
 export {
-  findAllTodos as findAll,
-  findTodoById as find,
-  createTodo as create,
-  updateTodoById as update,
-  removeTodoById as remove,
+  getAllTodosService,
+  getTodoByIdService,
+  createTodoService,
+  updateTodoByIdService,
+  removeTodoByIdService,
 };

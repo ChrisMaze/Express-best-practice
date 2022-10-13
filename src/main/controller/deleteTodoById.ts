@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import * as todoService from "../../service/todoService";
+import { removeTodoByIdService } from "../../service/todoService";
 import TodoNotFoundException from "../../exceptions/NotFoundException";
 
 export const deleteTodoById = async (
@@ -8,7 +8,7 @@ export const deleteTodoById = async (
   next: NextFunction
 ) => {
   try {
-    const todo = await todoService.remove(req);
+    const todo = await removeTodoByIdService(req);
     if (todo != null) {
       return res.status(200).send(todo);
     } else {

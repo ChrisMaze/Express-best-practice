@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import * as todoService from "../../service/todoService";
+import { getAllTodosService } from "../../service/todoService";
 
 export const getAllTodos = async (
   req: Request,
@@ -7,7 +7,7 @@ export const getAllTodos = async (
   next: NextFunction
 ) => {
   try {
-    const todos = await todoService.findAll();
+    const todos = await getAllTodosService();
     return res.send(todos);
   } catch (error) {
     next(error);
