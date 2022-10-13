@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { updateTodoByIdService } from "../../service/todoService";
-import TodoNotFoundException from "../../exceptions/NotFoundException";
+import { updateTodoByIdService } from "../service/todoService";
+import TodoNotFoundException from "../exceptions/NotFoundException";
 
 export const updateTodoById = async (
   req: Request,
@@ -9,7 +9,7 @@ export const updateTodoById = async (
 ) => {
   try {
     const todo = await updateTodoByIdService(req);
-    if (todo != null) {
+    if (todo) {
       return res.status(200).send(todo);
     } else {
       next(new TodoNotFoundException(req.params.id));

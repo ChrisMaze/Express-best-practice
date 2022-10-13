@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { removeTodoByIdService } from "../../service/todoService";
-import TodoNotFoundException from "../../exceptions/NotFoundException";
+import { removeTodoByIdService } from "../service/todoService";
+import TodoNotFoundException from "../exceptions/NotFoundException";
 
 export const deleteTodoById = async (
   req: Request,
@@ -9,7 +9,7 @@ export const deleteTodoById = async (
 ) => {
   try {
     const todo = await removeTodoByIdService(req);
-    if (todo != null) {
+    if (todo) {
       return res.status(200).send(todo);
     } else {
       next(new TodoNotFoundException(req.params.id));
