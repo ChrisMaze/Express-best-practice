@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getAllTodos } from "../controller/getAllTodos";
-import { getTodoById } from "../controller/getTodoById";
-import { createTodo } from "../controller/createTodo";
-import { updateTodoById } from "../controller/updateTodoById";
-import { deleteTodoById } from "../controller/deleteTodoById";
+import { getAllTodos } from "../controller/getAllTodos/getAllTodos";
+import { getTodoById } from "../controller/getTodoById/getTodoById";
+import { createTodo } from "../controller/createTodo/createTodo";
+import { updateTodoById } from "../controller/updateTodoById/updateTodoById";
+import { deleteTodoById } from "../controller/deleteTodoById/deleteTodoById";
 import { paramsVerify } from "../middleware/validationMiddleware";
 
 const router = Router();
