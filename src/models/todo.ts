@@ -10,12 +10,12 @@ const todoSchema: Schema = new Schema(
       type: String,
       required: true,
     },
-    status: {
+    completed: {
       type: Boolean,
       required: true,
     },
   },
-  { timestamps: true }
+  { versionKey: false }
 );
 
 export default model<ITodo>("Todo", todoSchema);
