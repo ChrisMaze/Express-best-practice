@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createTodoService } from "../../service/todoService";
+import { createTodoService } from "../service/todoService";
 
 export const createTodo = async (
   req: Request,

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { getTodoByIdService } from "../../service/todoService";
+import { getTodoByIdService } from "../service/todoService";
 
-import TodoNotFoundException from "../../exceptions/NotFoundException";
+import TodoNotFoundException from "../exceptions/NotFoundException";
 
 export const getTodoById = async (
   req: Request,

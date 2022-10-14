@@ -3,15 +3,11 @@ import { ITodo } from "../types/ITodo";
 import Todo from "../models/todo";
 
 const getAllTodosService = async () => {
-  console.log("11111");
-  console.log(Todo);
   const todos: ITodo[] = await Todo.find();
-  console.log(todos);
   return todos;
 };
 
 const getTodoByIdService = async (req: Request) => {
-  console.log(req);
   const todo: ITodo | null = await Todo.findById(req.params.id);
   return todo;
 };
