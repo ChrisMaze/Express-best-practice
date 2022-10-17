@@ -1,14 +1,15 @@
 import { Request } from "express";
 import { ITodo } from "../types/ITodo";
-import Todo from "../models/todo";
+// import { Todo } from "../models/todo";
 
+const { Todo } = require("../models/todo");
 const getAllTodosService = async () => {
   const todos: ITodo[] = await Todo.find();
   return todos;
 };
 
-const getTodoByIdService = async (req: Request) => {
-  const todo: ITodo | null = await Todo.findById(req.params.id);
+const getTodoByIdService = async (id: string) => {
+  const todo: ITodo | null = await Todo.findById(id);
   return todo;
 };
 
@@ -32,8 +33,8 @@ const updateTodoByIdService = async (req: Request) => {
   return todo;
 };
 
-const removeTodoByIdService = async (req: Request) => {
-  const todo: ITodo | null = await Todo.findByIdAndRemove(req.params.id);
+const removeTodoByIdService = async (id: string) => {
+  const todo: ITodo | null = await Todo.findByIdAndRemove(id);
   return todo;
 };
 

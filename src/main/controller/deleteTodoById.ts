@@ -8,7 +8,7 @@ export const deleteTodoById = async (
   next: NextFunction
 ) => {
   try {
-    const todo = await removeTodoByIdService(req);
+    const todo = await removeTodoByIdService(req.params.id);
     if (todo) {
       return res.status(200).send(todo);
     } else {

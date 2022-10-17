@@ -9,7 +9,7 @@ export const getTodoById = async (
   next: NextFunction
 ) => {
   try {
-    const todo = await getTodoByIdService(req);
+    const todo = await getTodoByIdService(req.params.id);
     if (todo) {
       return res.send(todo);
     } else {
