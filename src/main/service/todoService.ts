@@ -1,4 +1,3 @@
-import { Request } from "express";
 import { ITodo } from "../types/ITodo";
 import { Model } from "mongoose";
 
@@ -7,26 +6,19 @@ export default class TodoService {
   constructor(TodoModel: Model<ITodo>) {
     this.Todo = TodoModel;
   }
-  getAllTodosService = async () => {
+  getAllTodos = async () => {
     const todos: ITodo[] = await this.Todo.find({});
     return todos;
   };
-  getTodoByIdService = async (id: string) => {
+  getTodoById = async (id: string) => {
     const todo: ITodo | null = await this.Todo.findById(id);
     return todo;
   };
-  updateTodoByIdService = async (req: Request) => {
-    const {
-      params: { id },
-      body,
-    } = req;
-    const todo: ITodo | null = await this.Todo.findByIdAndUpdate(
-      { _id: id },
-      body
-    );
+  updateTodoById = async (id: string, body: Object) => {
+    const todo = await this.Todo.findByIdAndUpdate({ _id: id }, body);
     return todo;
   };
-  createTodoService = async (reqBody: Object) => {
+  createTodo = async (reqBody: Object) => {
     const body = reqBody as Pick<ITodo, "title" | "description" | "completed">;
     const todo = new this.Todo({
       title: body.title,
@@ -36,7 +28,7 @@ export default class TodoService {
     await todo.save();
     return todo;
   };
-  removeTodoByIdService = async (id: string) => {
+  removeTodoById = async (id: string) => {
     const todo: ITodo | null = await this.Todo.findByIdAndRemove(id);
     return todo;
   };
