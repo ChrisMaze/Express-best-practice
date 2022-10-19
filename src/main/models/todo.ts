@@ -14,8 +14,12 @@ const todoSchema: Schema = new Schema(
       type: Boolean,
       required: true,
     },
+    dueDate: {
+      type: Date,
+      default: () => new Date(),
+    },
   },
-  { versionKey: false }
+  { timestamps: true, versionKey: false }
 );
 
 export default model<ITodo>("Todo", todoSchema);
