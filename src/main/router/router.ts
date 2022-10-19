@@ -4,9 +4,11 @@ import { GetTodoByIdController } from "../controller/getTodoById";
 import { CreateTodoController } from "../controller/createTodo";
 import { UpdateTodoByIdController } from "../controller/updateTodoById";
 import { DeleteTodoByIdController } from "../controller/deleteTodoById";
-import { paramsVerify } from "../middleware/validationMiddleware";
+
+import { ParamsVerify } from "../middleware/validationMiddleware";
 import TodoService from "../service/todoService";
 import Todo from "../models/todo";
+import { DeleteAllTodosController } from "../controller/deleteAllTodos";
 
 const router = Router();
 const createTodoController = new CreateTodoController(new TodoService(Todo));
@@ -18,14 +20,18 @@ const updateTodoByIdController = new UpdateTodoByIdController(
 const deleteTodoByIdController = new DeleteTodoByIdController(
   new TodoService(Todo)
 );
+const deleteAllTodosController = new DeleteAllTodosController(
+  new TodoService(Todo)
+);
 
 router.get("/todo", getAllTodosController.getAllTodos);
-router.get("/todo/:id", paramsVerify, getTodoByIdController.getTodoById);
+router.get("/todo/:id", ParamsVerify, getTodoByIdController.getTodoById);
 router.post("/todo", createTodoController.createTodo);
-router.put("/todo/:id", paramsVerify, updateTodoByIdController.updateTodoById);
+router.put("/todo/:id", ParamsVerify, updateTodoByIdController.updateTodoById);
 router.delete(
   "/todo/:id",
-  paramsVerify,
+  ParamsVerify,
   deleteTodoByIdController.deleteTodoById
 );
+router.delete("/todo", deleteAllTodosController.deleteAllTodos);
 export default router;

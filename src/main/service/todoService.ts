@@ -18,7 +18,7 @@ export default class TodoService {
     const todo = await this.Todo.findByIdAndUpdate({ _id: id }, body);
     return todo;
   };
-  createTodo = async (reqBody: Object) => {
+  createTodo = async (reqBody: Object): Promise<any> => {
     const body = reqBody as Pick<ITodo, "title" | "description" | "completed">;
     const todo = new this.Todo({
       title: body.title,
@@ -31,5 +31,8 @@ export default class TodoService {
   removeTodoById = async (id: string) => {
     const todo: ITodo | null = await this.Todo.findByIdAndRemove(id);
     return todo;
+  };
+  removeAllTodos = async () => {
+    await this.Todo.deleteMany({});
   };
 }
