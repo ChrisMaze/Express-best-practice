@@ -7,7 +7,7 @@ export class DeleteTodoByIdController {
     try {
       const todo = await this.todoService.removeTodoById(req.params.id);
       if (todo) {
-        return res.status(200).send(todo);
+        return res.status(200).json(todo);
       } else {
         next(new TodoNotFoundException(req.params.id));
       }

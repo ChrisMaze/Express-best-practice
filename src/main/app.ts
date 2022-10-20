@@ -8,7 +8,7 @@ const PORT = 7700;
 const app: Express = express();
 connectDB;
 app.use(express.json());
-cron.schedule("* */10 * * * *", checkTodoStatus);
+cron.schedule("* * */12 * * *", checkTodoStatus);
 app.use(router);
 
 app.listen(PORT, () => {

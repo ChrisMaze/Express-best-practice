@@ -8,7 +8,7 @@ export class GetTodoByIdController {
     try {
       const todo = await this.todoService.getTodoById(req.params.id);
       if (todo) {
-        return res.send(todo);
+        return res.json(todo);
       } else {
         next(new TodoNotFoundException(req.params.id));
       }

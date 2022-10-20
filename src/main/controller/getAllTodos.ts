@@ -5,7 +5,7 @@ export class GetAllTodosController {
   getAllTodos = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const todos = await this.todoService.getAllTodos();
-      return res.send(todos);
+      return res.json(todos);
     } catch (error) {
       next(error);
     }

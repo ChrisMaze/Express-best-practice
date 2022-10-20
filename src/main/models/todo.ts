@@ -10,13 +10,17 @@ const todoSchema: Schema = new Schema(
       type: String,
       required: true,
     },
-    completed: {
-      type: Boolean,
-      required: true,
+    status: {
+      type: String,
+      default: "Active",
+    },
+    startDate: {
+      type: Date,
+      default: Date.now,
     },
     dueDate: {
       type: Date,
-      default: () => new Date(),
+      default: Date.now,
     },
   },
   { timestamps: true, versionKey: false }

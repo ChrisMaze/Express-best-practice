@@ -19,11 +19,22 @@ export default class TodoService {
     return todo;
   };
   createTodo = async (reqBody: Object): Promise<any> => {
-    const body = reqBody as Pick<ITodo, "title" | "description" | "completed">;
+    const body = reqBody as Pick<
+      ITodo,
+      | "title"
+      | "description"
+      | "status"
+      | "startDate"
+      | "completedDate"
+      | "dueDate"
+    >;
     const todo = new this.Todo({
       title: body.title,
       description: body.description,
-      completed: body.completed,
+      status: body.status,
+      startDate: body.startDate,
+      completedDate: body.completedDate,
+      dueDate: body.dueDate,
     });
     await todo.save();
     return todo;
