@@ -3,6 +3,7 @@ import TodoService from "../service/todoService";
 import Todo from "../models/todo";
 import { Status } from "../enum/enum";
 import { MailService } from "../service/mailService";
+import Logger from "../lib/logger";
 
 const todoService = new TodoService(Todo);
 const mailService = new MailService();
@@ -40,7 +41,7 @@ export const checkTodoStatus = async () => {
     }
     await todo.updateOne({ status: todo.status });
   }
-  console.log(
+  Logger.info(
     colors.green.italic(
       "Task status Scheduler has successfully ran at time: " + new Date()
     )
@@ -52,7 +53,7 @@ const logStatusChange = (
   oldStatus: Status,
   newStatus: Status
 ) => {
-  console.log(
+  Logger.info(
     colors.magenta(`${todoId} status changed from ${oldStatus} to ${newStatus}`)
   );
 };

@@ -1,18 +1,24 @@
 import express, { Express } from "express";
+import bodyParser from "body-parser";
 import "reflect-metadata";
 import router from "./router/router";
 import { connectDB } from "./db/db";
 import * as cron from "node-cron";
 import { checkTodoStatus } from "./schedulers/checkTodoStatus";
+import Logger from "./lib/logger";
+import morganMiddleware from "./config/morganMiddleware";
 const PORT = 7700;
 const app: Express = express();
 connectDB;
 app.use(express.json());
+app.use(morganMiddleware);
+app.use(bodyParser.json());
+
 cron.schedule("* * */12 * * *", checkTodoStatus);
 app.use(router);
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  Logger.debug(`Server running on http://localhost:${PORT}`);
 });
 
 export default app;

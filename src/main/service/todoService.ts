@@ -19,6 +19,10 @@ export default class TodoService {
     return todo;
   };
   createTodo = async (reqBody: Object): Promise<any> => {
+    console.log("-------");
+    console.log(reqBody);
+    console.log("-----");
+
     const body = reqBody as Pick<
       ITodo,
       | "title"
@@ -28,6 +32,10 @@ export default class TodoService {
       | "completedDate"
       | "dueDate"
     >;
+    console.log(body);
+    console.log(typeof body.title);
+    console.log("111");
+
     const todo = new this.Todo({
       title: body.title,
       description: body.description,
