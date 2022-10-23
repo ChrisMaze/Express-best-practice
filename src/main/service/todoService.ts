@@ -2,27 +2,23 @@ import { ITodo } from "../types/ITodo";
 import { Model } from "mongoose";
 
 export default class TodoService {
-  Todo: Model<ITodo, {}, {}, {}, any>;
+  todo: Model<ITodo, {}, {}, {}, any>;
   constructor(TodoModel: Model<ITodo>) {
-    this.Todo = TodoModel;
+    this.todo = TodoModel;
   }
-  getAllTodos = async () => {
-    const todos: ITodo[] = await this.Todo.find({});
+  public async getAllTodos(): Promise<ITodo[] | null> {
+    const todos: ITodo[] = await this.todo.find({});
     return todos;
-  };
-  getTodoById = async (id: string) => {
-    const todo: ITodo | null = await this.Todo.findById(id);
+  }
+  public async getTodoById(id: string): Promise<ITodo | null> {
+    const todo: ITodo | null = await this.todo.findById(id);
     return todo;
-  };
-  updateTodoById = async (id: string, body: Object) => {
-    const todo = await this.Todo.findByIdAndUpdate({ _id: id }, body);
+  }
+  public async updateTodoById(id: string, body: Object): Promise<ITodo | null> {
+    const todo = await this.todo.findByIdAndUpdate({ _id: id }, body);
     return todo;
-  };
-  createTodo = async (reqBody: Object): Promise<any> => {
-    console.log("-------");
-    console.log(reqBody);
-    console.log("-----");
-
+  }
+  public async createTodo(reqBody: Object): Promise<ITodo> {
     const body = reqBody as Pick<
       ITodo,
       | "title"
@@ -32,11 +28,8 @@ export default class TodoService {
       | "completedDate"
       | "dueDate"
     >;
-    console.log(body);
-    console.log(typeof body.title);
-    console.log("111");
 
-    const todo = new this.Todo({
+    const todo = new this.todo({
       title: body.title,
       description: body.description,
       status: body.status,
@@ -46,12 +39,15 @@ export default class TodoService {
     });
     await todo.save();
     return todo;
-  };
-  removeTodoById = async (id: string) => {
-    const todo: ITodo | null = await this.Todo.findByIdAndRemove(id);
+  }
+
+  public async removeTodoById(id: string) {
+    const todo: ITodo | null = await this.todo.findByIdAndRemove({ _id: id });
     return todo;
-  };
-  removeAllTodos = async () => {
-    await this.Todo.deleteMany({});
-  };
+  }
+
+  public async removeAllTodos(): Promise<string> {
+    await this.todo.deleteMany({});
+    return "Delete all todos!";
+  }
 }

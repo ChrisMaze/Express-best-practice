@@ -17,7 +17,7 @@ export class MailService {
     text: "Node.js Cron Job Email Demo Test",
   };
 
-  isSent = (message: string) => {
+  public isSent(message: string) {
     this.mailDetails.subject = message;
     this.mailDetails.text = message;
     this.mailTransporter.sendMail(this.mailDetails, function (err, data) {
@@ -27,5 +27,5 @@ export class MailService {
         console.log("Email sent successfully");
       }
     });
-  };
+  }
 }

@@ -9,6 +9,10 @@ const todoService = new TodoService(Todo);
 const mailService = new MailService();
 export const checkTodoStatus = async () => {
   let todos = await todoService.getAllTodos();
+  if (todos == null) {
+    return;
+  }
+
   for (const todo of todos) {
     const startDate = new Date(todo.startDate).getTime();
     const dueDate = new Date(todo.dueDate).getTime();
@@ -26,7 +30,6 @@ export const checkTodoStatus = async () => {
     ) {
       logStatusChange(todo._id.toString(), todo.status, Status.Overdue);
       todo.status = Status.Overdue;
-
       const message: string = "Todo " + `${todo._id}` + " Overdue Alart!";
       mailService.isSent(message);
     }
@@ -39,7 +42,18 @@ export const checkTodoStatus = async () => {
       logStatusChange(todo._id.toString(), todo.status, Status.Active);
       todo.status = Status.Active;
     }
-    await todo.updateOne({ status: todo.status });
+
+    const updateTodo = new Todo({
+      _id: todo.id,
+      title: todo.title,
+      description: todo.description,
+      status: todo.status,
+      startDate: todo.startDate,
+      completedDate: todo.completedDate,
+      dueDate: todo.dueDate,
+    });
+    // const newTodo = await todo.updateOne({ status: todo.status });
+    await updateTodo.save({});
   }
   Logger.info(
     colors.green.italic(

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const uri: string = `mongodb://localhost:27017/todo-express-best-practice?retryWrites=true&w=majority`;
 // const uri: string = `mongodb://mongo:27017/todo?directConnection=true`;
-export const dbInitialize = mongoose
+export const connectDB = mongoose
   .connect(uri)
   .then(() => {
     console.log(

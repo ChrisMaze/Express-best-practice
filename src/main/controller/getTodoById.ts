@@ -1,14 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import TodoService from "../service/todoService";
 import TodoNotFoundException from "../exceptions/NotFoundException";
-
+import Todo from "../models/todo";
 export class GetTodoByIdController {
-  constructor(private todoService: TodoService) {}
+  todoService: TodoService;
+  constructor() {
+    this.todoService = new TodoService(Todo);
+  }
   getTodoById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const todo = await this.todoService.getTodoById(req.params.id);
       if (todo) {
-        return res.json(todo);
+        return res.send(todo);
       } else {
         next(new TodoNotFoundException(req.params.id));
       }
