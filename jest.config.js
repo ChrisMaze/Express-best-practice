@@ -7,5 +7,5 @@ module.exports = {
     "@exmpl/(.*)": "<rootDir>/src/$1",
   },
   clearMocks: true,
-  collectCoverage: true,
+  collectCoverage: false,
 };
