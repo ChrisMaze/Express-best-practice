@@ -8,10 +8,4 @@ export interface ITodo extends Document {
   startDate: Date;
   completedDate?: Date;
   dueDate: Date;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-export interface ITodoDocument extends ITodo, Document {
-  updateAt: Date;
-  createAt: Date;
 }

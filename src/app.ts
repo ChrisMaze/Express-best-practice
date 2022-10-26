@@ -3,7 +3,7 @@ import "reflect-metadata";
 import router from "./router";
 import { connectMOngoDB } from "./db/connectDB";
 import * as cron from "node-cron";
-import { checkTodoStatus } from "./middleware/checkTodoStatusMiddleware";
+import { checkTodoStatus } from "./middleware/checkTodoStatus";
 import logger from "./service/logger";
 import morganMiddleware from "./middleware/morganMiddleware";
 

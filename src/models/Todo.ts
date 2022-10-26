@@ -1,15 +1,16 @@
 import { Status } from "../enum/enum";
 import { model, Schema } from "mongoose";
 import { ITodo } from "../types/ITodo";
-const todoSchema: Schema = new Schema(
+export const todoSchema: Schema = new Schema(
   {
     title: {
       type: String,
+      minLength: 1,
       required: true,
     },
     description: {
       type: String,
-      required: true,
+      default: "",
     },
     status: {
       type: String,
