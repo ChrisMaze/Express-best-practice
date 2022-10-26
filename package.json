@@ -6,7 +6,7 @@
     "test": "tsc && jest --detectOpenHandles t",
     "test:watch": "tsc && jest --watch --detectOpenHandles",
     "build": "tsc",
-    "dev": "nodemon src/main/app.ts"
+    "dev": "nodemon src/app.ts"
   },
   "author": "",
   "license": "ISC",
