@@ -1,15 +1,16 @@
 import { NextFunction, Request, Response } from "express";
-import { HttpException } from "../../main/exceptions/HttpException";
-import { ParamsVerify } from "../../main/middleware/validationMiddleware";
+import { HttpException } from "../../src/exceptions/HttpException";
+import { validateParams } from "../../src/middleware/validationMiddleware";
 
-describe("Test ParamsVerify", () => {
+describe("Test validateParams", () => {
   const response = {
     status: jest.fn().mockReturnThis(),
     send: jest.fn(),
   } as any as Response;
   const mockNext: NextFunction = jest.fn();
+  
   it("should return 404 when given a invalid id", async () => {
-    jest.mock("../../main/exceptions/HttpException", () => {
+    jest.mock("../../src/exceptions/HttpException", () => {
       return new HttpException(404, "Invalid id!");
     });
     const error = new HttpException(404, "Invalid id!");
@@ -19,7 +20,7 @@ describe("Test ParamsVerify", () => {
       },
     } as any as Request;
 
-    await ParamsVerify(
+    await validateParams(
       request as Request,
       response as Response,
       mockNext as NextFunction
@@ -31,11 +32,11 @@ describe("Test ParamsVerify", () => {
   it("should call next function when given a valid id", async () => {
     const request = {
       params: {
-        id: "0",
+        id: "635748a3eb495292d320f5db",
       },
     } as any as Request;
 
-    await ParamsVerify(
+    await validateParams(
       request as Request,
       response as Response,
       mockNext as NextFunction

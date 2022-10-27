@@ -1,11 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import TodoService from "../../main/service/todoService";
-import { UpdateTodoByIdController } from "../../main/controller/updateTodoById";
-import TodoNotFoundException from "../../main/exceptions/NotFoundException";
+import * as todoService from "../../src/service/todoService";
+import { updateTodoByIdController } from "../../src/controller/updateTodoById";
+import TodoNotFoundException from "../../src/exceptions/NotFoundException";
 
 describe("Test UpdateTodoByIdController", () => {
-  const updateTodoByIdController = new UpdateTodoByIdController();
-
   const reqBody = {
     title: "test",
     description: "test update",
@@ -33,21 +31,21 @@ describe("Test UpdateTodoByIdController", () => {
     } as any as Response;
     const mockNext: NextFunction = jest.fn();
     const updateTodoByIdMock = jest
-      .spyOn(TodoService.prototype, "updateTodoById")
+      .spyOn(todoService, "updateTodoById")
       .mockImplementation((): any => {
         return todo;
       });
-    const result = await updateTodoByIdController.updateTodoById(
+    await updateTodoByIdController(
       request as Request,
       response as Response,
       mockNext as NextFunction
     );
     expect(updateTodoByIdMock).toHaveBeenCalled();
-    expect(result).toBe(todo);
+    expect(response.send).toHaveBeenCalledWith(todo);
   });
 
   it("should call TodoNotFoundException when todo is not found", async () => {
-    jest.mock("../../main/exceptions/NotFoundException");
+    jest.mock("../../src/exceptions/NotFoundException");
     const notFoundError = new TodoNotFoundException("6355038e3758edf07631fb6b");
     const request = {
       params: {
@@ -60,18 +58,17 @@ describe("Test UpdateTodoByIdController", () => {
     } as any as Response;
     const mockNext: NextFunction = jest.fn();
     const updateTodoByIdMock = jest
-      .spyOn(TodoService.prototype, "updateTodoById")
+      .spyOn(todoService, "updateTodoById")
       .mockImplementation((): any => {
         return null;
       });
-    await updateTodoByIdController.updateTodoById(
+    await updateTodoByIdController(
       request as Request,
       response as Response,
       mockNext as NextFunction
     );
     expect(updateTodoByIdMock).toHaveBeenCalled();
     expect(updateTodoByIdMock).toHaveReturnedWith(null);
-    expect(mockNext).toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalledWith(notFoundError);
   });
 });

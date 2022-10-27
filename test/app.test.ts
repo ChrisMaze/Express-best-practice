@@ -1,8 +1,8 @@
 import request from "supertest";
-import app from "../src/main/app";
+import app from "../src/app";
 
-jest.mock("../../src/main/models/todo");
-jest.mock("../../src/main/types/ITodo");
+jest.mock("../src/models/todo");
+jest.mock("../src/types/ITodo");
 
 describe("App Test", () => {
   it("should return 404 when GET /reset", () => {

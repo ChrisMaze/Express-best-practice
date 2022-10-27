@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import TodoService from "../../src/main/service/todoService";
-import { CreateTodoController } from "../../src/main/controller/createTodo";
+import * as todoService from "../../src/service/todoService";
+import { createTodoController } from "../../src/controller/createTodo";
 
-describe("Test CreateTodoController", () => {
-  let createTodoController: CreateTodoController;
+describe("Test createTodoController", () => {
   let request: Request;
   let response: Response;
   const mockNext: NextFunction = jest.fn();
@@ -26,7 +25,6 @@ describe("Test CreateTodoController", () => {
   };
 
   beforeEach(() => {
-    createTodoController = new CreateTodoController();
     request = {
       body: reqBody,
     } as Request;
@@ -37,16 +35,16 @@ describe("Test CreateTodoController", () => {
 
   it("should response with todo object when service returns the todo", async () => {
     const createTodoMock = jest
-      .spyOn(TodoService.prototype, "createTodo")
+      .spyOn(todoService, "createTodo")
       .mockImplementation((): any => {
         return expected;
       });
-    const result = await createTodoController.createTodo(
+    await createTodoController(
       request as Request,
       response as Response,
       mockNext as NextFunction
     );
     expect(createTodoMock).toHaveBeenCalled();
-    expect(result).toBe(expected);
+    expect(response.send).toBeCalledWith(expected);
   });
 });

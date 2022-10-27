@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import logger from "./logger";
 export const sendMail = (message: string): any => {
   const mailTransporter = nodemailer.createTransport({
     service: "gmail",
@@ -16,9 +17,9 @@ export const sendMail = (message: string): any => {
 
   mailTransporter.sendMail(mailDetails, function (err, data) {
     if (err) {
-      console.log("Error occurred", err.message);
+      logger.error("Error occurred", err.message);
     } else {
-      console.log("Email sent successfully");
+      logger.info("Email sent successfully");
     }
   });
 };

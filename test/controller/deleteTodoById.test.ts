@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { DeleteTodoByIdController } from "../../src/main/controller/deleteTodoById";
-import TodoNotFoundException from "../../src/main/exceptions/NotFoundException";
-import TodoService from "../../src/main/service/todoService";
-jest.mock("../../main/service/todoService");
+import { deleteTodoByIdController } from "../../src/controller/deleteTodoById";
+import TodoNotFoundException from "../../src/exceptions/NotFoundException";
+import * as todoService from "../../src/service/todoService";
+
 describe("Test DeleteTodoByIdController", () => {
-  const deleteTodoByIdController = new DeleteTodoByIdController();
   const todo = {
     _id: "0",
     title: "test",
@@ -25,21 +24,21 @@ describe("Test DeleteTodoByIdController", () => {
     } as any as Response;
     const mockNext: NextFunction = jest.fn();
     const deleteTodoByIdMock = jest
-      .spyOn(TodoService.prototype, "removeTodoById")
+      .spyOn(todoService, "removeTodoById")
       .mockImplementation((): any => {
         return todo;
       });
-    const result = await deleteTodoByIdController.deleteTodoById(
+    await deleteTodoByIdController(
       request as Request,
       response as Response,
       mockNext as NextFunction
     );
     expect(deleteTodoByIdMock).toHaveBeenCalled();
-    expect(result).toBe(todo);
+    expect(response.send).toBeCalledWith(todo);
   });
 
   it("should call TodoNotFoundException when todo is not found", async () => {
-    jest.mock("../../main/exceptions/NotFoundException");
+    jest.mock("../../src/exceptions/NotFoundException");
     const notFoundError = new TodoNotFoundException("6355038e3758edf07631fb6b");
     const request = {
       params: {
@@ -52,11 +51,11 @@ describe("Test DeleteTodoByIdController", () => {
     } as any as Response;
     const mockNext: NextFunction = jest.fn();
     const deleteTodoByIdMock = jest
-      .spyOn(TodoService.prototype, "removeTodoById")
+      .spyOn(todoService, "removeTodoById")
       .mockImplementation((): any => {
         return null;
       });
-    await deleteTodoByIdController.deleteTodoById(
+    await deleteTodoByIdController(
       request as Request,
       response as Response,
       mockNext as NextFunction

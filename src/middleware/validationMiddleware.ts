@@ -3,8 +3,6 @@ import { MessageEnum } from "../enum/enum";
 import { body, param, validationResult } from "express-validator";
 import ValidatorException from "../exceptions/ValidatorException";
 
-// import { ITodo } from "./types/ITodo";
-
 export const validateParams = async (
   req: Request,
   res: Response,
@@ -26,7 +24,7 @@ export const createSchema = [
     .isLength({ max: 50 })
     .withMessage(MessageEnum.DESCRIPTION_VERIFY_MESSAGE),
   body("status")
-    .isIn(["Overdue", "Completed", "Completed", "Active"])
+    .isIn(["Overdue", "Hold", "Completed", "Active"])
     .withMessage(MessageEnum.STATUS_VERIFY_MESSAGE),
   body("startDate")
     .isISO8601()
@@ -51,7 +49,7 @@ export const updateSchema = [
     .withMessage(MessageEnum.DESCRIPTION_VERIFY_MESSAGE),
   body("status")
     .optional()
-    .isIn(["Overdue", "Completed", "Completed", "Active"])
+    .isIn(["Overdue", "Hold", "Completed", "Active"])
     .trim()
     .withMessage(MessageEnum.STATUS_VERIFY_MESSAGE),
   body("startDate")

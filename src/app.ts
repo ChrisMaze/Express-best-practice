@@ -12,7 +12,7 @@ const app: Express = express();
 connectMOngoDB;
 app.use(express.json());
 app.use(morganMiddleware);
-cron.schedule("* * */12 * * *", checkTodoStatus);
+cron.schedule("*/60 * * * * *", checkTodoStatus);
 app.use(router);
 
 app.listen(PORT, () => {

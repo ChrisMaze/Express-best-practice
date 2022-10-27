@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { DeleteAllTodosController } from "../../src/main/controller/deleteAllTodos";
-import TodoService from "../../src/main/service/todoService";
-jest.mock("../../main/service/todoService");
+import { deleteAllTodosController } from "../../src/controller/deleteAllTodos";
+import * as todoService from "../../src/service/todoService";
+
 describe("Test DeleteAllTodosController", () => {
-  const deleteAllTodosController = new DeleteAllTodosController();
   const request = {} as Request;
   let response: Response;
   const mockNext: NextFunction = jest.fn();
@@ -17,16 +16,16 @@ describe("Test DeleteAllTodosController", () => {
 
   it("should response with message when service returns the message", async () => {
     const deleteAllTodosMock = jest
-      .spyOn(TodoService.prototype, "removeAllTodos")
+      .spyOn(todoService, "removeAllTodos")
       .mockImplementation((): any => {
         return Promise.resolve(message);
       });
-    const result = await deleteAllTodosController.deleteAllTodos(
+    await deleteAllTodosController(
       request as Request,
       response as Response,
       mockNext as NextFunction
     );
     expect(deleteAllTodosMock).toHaveBeenCalled();
-    expect(result).toBe(message);
+    expect(response.send).toBeCalledWith(message);
   });
 });
