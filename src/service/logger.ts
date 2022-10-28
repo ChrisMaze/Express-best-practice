@@ -1,5 +1,6 @@
 import winston from "winston";
 import "winston-daily-rotate-file";
+import rTracer from "cls-rtracer";
 const levels = {
   error: 0,
   warn: 1,
@@ -28,10 +29,12 @@ winston.addColors(colors);
 const format = winston.format.combine(
   winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss:ms" }),
   winston.format.colorize({ all: true }),
-  winston.format.printf(
-    (info) => `${info.timestamp} ${info.level}: ${info.message}`
-  )
-  // winston.format.printf((error)=>`${error.timestamp} ${error.level}: ${error.message}`)
+  winston.format.printf((info) => {
+    const rid = rTracer.id();
+    return rid
+      ? `${info.timestamp} [request-id:${rid}] ${info.level}: ${info.message}`
+      : `${info.timestamp} ${info.level}: ${info.message}`;
+  })
 );
 
 const transports = [

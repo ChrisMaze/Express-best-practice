@@ -1169,6 +1169,13 @@
     "strip-ansi" "^6.0.1"
     "wrap-ansi" "^7.0.0"
 
+"cls-rtracer@^2.6.2":
+  "integrity" "sha512-9TYlTXQkjaytD2oe+WCEAXArgqlrHzvVW5WnwpUgenuY8D3rMfJVgsCogY77YHM9R3dUOMv3XpKRRn+LQnrUEQ=="
+  "resolved" "https://registry.npmjs.org/cls-rtracer/-/cls-rtracer-2.6.2.tgz"
+  "version" "2.6.2"
+  dependencies:
+    "uuid" "^8.3.2"
+
 "co@^4.6.0":
   "integrity" "sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ=="
   "resolved" "https://registry.npmjs.org/co/-/co-4.6.0.tgz"
@@ -3582,6 +3589,11 @@
   "version" "1.0.1"
 
 "uuid@^8.3.1":
+  "integrity" "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="
+  "resolved" "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz"
+  "version" "8.3.2"
+
+"uuid@^8.3.2":
   "integrity" "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="
   "resolved" "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz"
   "version" "8.3.2"
