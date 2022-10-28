@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { getTodoById } from "../service/todoService";
-import { TodoNotFoundException } from "../exceptions/NotFoundException";
+import { NotFoundException } from "../exceptions/NotFoundException";
+import logger from "../service/logger";
 
 export const getTodoByIdController = async (
   req: Request,
@@ -13,9 +14,10 @@ export const getTodoByIdController = async (
       res.send(todo);
       return;
     } else {
-      next(new TodoNotFoundException(req.params.id));
+      next(new NotFoundException(req.params.id));
     }
   } catch (error) {
+    logger.error(`Error occurred ${error}`);
     next(error);
   }
 };

@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import logger from "../service/logger";
 import { removeAllTodos } from "../service/todoService";
 
 export const deleteAllTodosController = async (
@@ -11,6 +12,7 @@ export const deleteAllTodosController = async (
     res.send(meaasge);
     return;
   } catch (error) {
+    logger.error(`Error occurred ${error}`);
     next(error);
   }
 };

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { deleteTodoByIdController } from "../../src/controller/deleteTodoById";
-import { TodoNotFoundException } from "../../src/exceptions/NotFoundException";
+import { NotFoundException } from "../../src/exceptions/NotFoundException";
 import * as todoService from "../../src/service/todoService";
 
 describe("Test DeleteTodoByIdController", () => {
@@ -39,7 +39,7 @@ describe("Test DeleteTodoByIdController", () => {
 
   it("should call TodoNotFoundException when todo is not found", async () => {
     jest.mock("../../src/exceptions/NotFoundException");
-    const notFoundError = new TodoNotFoundException("6355038e3758edf07631fb6b");
+    const notFoundError = new NotFoundException("6355038e3758edf07631fb6b");
     const request = {
       params: {
         id: "6355038e3758edf07631fb6b",

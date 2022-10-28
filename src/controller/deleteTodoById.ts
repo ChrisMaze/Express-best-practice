@@ -1,6 +1,7 @@
-import { TodoNotFoundException } from "../exceptions/NotFoundException";
+import { NotFoundException } from "../exceptions/NotFoundException";
 import { NextFunction, Request, Response } from "express";
 import { removeTodoById } from "../service/todoService";
+import logger from "../service/logger";
 
 export const deleteTodoByIdController = async (
   req: Request,
@@ -13,9 +14,10 @@ export const deleteTodoByIdController = async (
       res.send(todo);
       return;
     } else {
-      next(new TodoNotFoundException(req.params.id));
+      next(new NotFoundException(req.params.id));
     }
   } catch (error) {
+    logger.error(`Error occurred ${error}`);
     next(error);
   }
 };

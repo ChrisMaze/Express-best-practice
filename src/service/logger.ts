@@ -1,5 +1,5 @@
 import winston from "winston";
-
+import "winston-daily-rotate-file";
 const levels = {
   error: 0,
   warn: 1,
@@ -31,15 +31,31 @@ const format = winston.format.combine(
   winston.format.printf(
     (info) => `${info.timestamp} ${info.level}: ${info.message}`
   )
+  // winston.format.printf((error)=>`${error.timestamp} ${error.level}: ${error.message}`)
 );
 
 const transports = [
   new winston.transports.Console(),
-  new winston.transports.File({
-    filename: "logs/error.log",
+  new winston.transports.DailyRotateFile({
+    filename: "logs/error-%DATE%.log",
     level: "error",
+    datePattern: "YYYY-MM-DD",
+    maxFiles: "30d",
+    maxSize: "2m",
   }),
-  new winston.transports.File({ filename: "logs/all.log" }),
+  new winston.transports.DailyRotateFile({
+    filename: "logs/all-%DATE%.log",
+    datePattern: "YYYY-MM-DD",
+    maxFiles: "30d",
+    maxSize: "2m",
+  }),
+  new winston.transports.DailyRotateFile({
+    filename: "logs/http-%DATE%.log",
+    level: "http",
+    datePattern: "YYYY-MM-DD",
+    maxFiles: "30d",
+    maxSize: "2m",
+  }),
 ];
 
 const logger = winston.createLogger({

@@ -12,5 +12,6 @@ export const connectMOngoDB = mongoose
     );
   })
   .catch((error) => {
+    logger.error(error);
     throw error;
   });

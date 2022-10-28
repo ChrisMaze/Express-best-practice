@@ -11,7 +11,7 @@ const validateBody = async (
   const error = validationResult(req).formatWith(({ msg }) => msg);
   console.log(error);
   const hasError = !error.isEmpty();
-  const message = error.array().join(" \n && ");
+  const message = error.array().join(" && ");
   if (hasError) {
     next(new ValidatorException(message));
   } else {
