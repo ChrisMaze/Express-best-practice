@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { getTodoByIdController } from "../../src/controller/getTodoById";
-import TodoNotFoundException from "../../src/exceptions/NotFoundException";
+import { TodoNotFoundException } from "../../src/exceptions/NotFoundException";
 import * as todoService from "../../src/service/todoService";
 
 describe("Test GetTodoByIdController", () => {

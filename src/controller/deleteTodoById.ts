@@ -1,4 +1,4 @@
-import TodoNotFoundException from "../exceptions/NotFoundException";
+import { TodoNotFoundException } from "../exceptions/NotFoundException";
 import { NextFunction, Request, Response } from "express";
 import { removeTodoById } from "../service/todoService";
 

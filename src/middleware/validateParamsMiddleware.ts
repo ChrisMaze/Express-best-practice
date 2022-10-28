@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { MessageEnum } from "../enum/enum";
-import ValidatorException from "../exceptions/ValidatorException";
+import { ValidatorException } from "../exceptions/ValidatorException";
 
 export const validateParams = async (
   req: Request,

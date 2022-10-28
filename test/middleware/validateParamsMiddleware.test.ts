@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { HttpException } from "../../src/exceptions/HttpException";
-import { validateParams } from "../../src/middleware/validationMiddleware";
+import { ValidatorException } from "../../src/exceptions/ValidatorException";
+import { validateParams } from "../../src/middleware/validateParamsMiddleware";
 
 describe("Test validateParams", () => {
   const response = {
@@ -8,12 +8,12 @@ describe("Test validateParams", () => {
     send: jest.fn(),
   } as any as Response;
   const mockNext: NextFunction = jest.fn();
-  
-  it("should return 404 when given a invalid id", async () => {
+
+  it("should return 422 when given a invalid id", async () => {
     jest.mock("../../src/exceptions/HttpException", () => {
-      return new HttpException(404, "Invalid id!");
+      return new ValidatorException("Invalid id!");
     });
-    const error = new HttpException(404, "Invalid id!");
+    const error = new ValidatorException("Invalid id!");
     const request = {
       params: {
         id: "9.2c",

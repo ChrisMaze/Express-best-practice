@@ -20,19 +20,7 @@ export const updateTodoById = async (
 };
 
 export const createTodo = async (reqBody: Object): Promise<ITodo> => {
-  // const body = reqBody as Pick<
-  //   ITodo,
-  //   "title" | "description" | "status" | "startDate" | "dueDate"
-  // >;
 
-  // const todo = new Todo({
-  //   title: body.title,
-  //   description: body.description,
-  //   status: body.status,
-  //   startDate: body.startDate,
-  //   dueDate: body.dueDate,
-  // });
-  // await todo.save();
   const todo = await Todo.create(reqBody);
   return todo;
 };

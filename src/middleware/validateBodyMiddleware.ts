@@ -1,15 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import { MessageEnum } from "../enum/enum";
 import { body, param, validationResult } from "express-validator";
-import ValidatorException from "../exceptions/ValidatorException";
+import { ValidatorException } from "../exceptions/ValidatorException";
+
 const validateBody = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const error = validationResult(req).formatWith(({ msg }) => msg);
+  console.log(error);
   const hasError = !error.isEmpty();
-  const message = error.array().join(" && ");
+  const message = error.array().join(" \n && ");
   if (hasError) {
     next(new ValidatorException(message));
   } else {

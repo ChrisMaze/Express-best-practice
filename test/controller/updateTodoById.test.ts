@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as todoService from "../../src/service/todoService";
 import { updateTodoByIdController } from "../../src/controller/updateTodoById";
-import TodoNotFoundException from "../../src/exceptions/NotFoundException";
+import { TodoNotFoundException } from "../../src/exceptions/NotFoundException";
 
 describe("Test UpdateTodoByIdController", () => {
   const reqBody = {
